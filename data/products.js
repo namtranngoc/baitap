@@ -79,6 +79,38 @@ export const PRODUCTS = [
     stock: 25,
     image: "assets/img/mu.png",
     description: "Mũ lưỡi trai Real Madrid chính hãng, thiết kế thời trang, bảo vệ khỏi nắng."
+  },
+   {
+    id : 10,
+    name: "Bộ quần áo xanh lá Real Madrid 2025",
+    price: 300000,
+    stock: 25,
+    image: "assets/img/aoxanhla.png",
+    description: "Áo thun cotton 100%, thoáng mát, phù hợp mọi hoạt động."
+  },
+    {
+    id : 10,
+    name: "Bộ quần áo xanh dương Real Madrid",
+    price: 300000,
+    stock: 25,
+    image: "assets/img/aoxanhduong.png",
+    description: "Áo thun cotton 100%, thoáng mát, phù hợp mọi hoạt động."
+  },
+   {
+    id : 10,
+    name: "Bộ quần áo hồng Real Madrid",
+    price: 300000,
+    stock: 25,
+    image: "assets/img/aohong.png",
+    description: "Áo thun cotton 100%, thoáng mát, phù hợp mọi hoạt động."
+  },
+  {
+    id : 11,
+    name : "Găng tay thủ môn JG-001",
+    price: 350000,
+    stock: 20,
+    image:"assets/img/gangjg.png",
+    description: "Găng tay thủ môn Adidas chất lượng cao, độ bám tốt."
   }
 
 ];
