@@ -1,0 +1,22 @@
+<div class="mt-4">
+    <h3>Đăng bài Blog mới</h3>
+
+    <form method="POST" action="/blogs/create">
+        <div class="form-group">
+            <label for="name">Tiêu đề bài viết</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tiêu đề...">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Mô tả ngắn</label>
+            <input type="text" class="form-control" id="description" name="description" placeholder="Nhập tóm tắt bài viết...">
+        </div>
+
+        <div class="form-group">
+            <label for="content">Nội dung chi tiết</label>
+            <textarea class="form-control" id="content" name="content" rows="5" placeholder="Nhập nội dung..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">Đăng bài</button>
+    </form>
+</div>
