@@ -2,9 +2,15 @@ const Blog = require('../models/Blogs');
 class HomeController {
 
 
-    home(req, res){
-        res.render('home');
-    }
+    home(req, res, next){
+    Blog.find({})
+        .then(blogs => {
+            res.render('home', {
+                blogs: blogs
+            });
+        })
+        .catch(next);
+}
 
 
     about(req, res){
@@ -44,6 +50,16 @@ class HomeController {
                 // Nếu có lỗi, chuyển đến middleware xử lý lỗi
                 next(error);
             });
+    }
+
+    store(req, res, next) {
+    const blog = new Blog(req.body);
+
+    blog.save()
+        .then(() => {
+            res.redirect('/');
+        })
+        .catch(next);
     }
 
 

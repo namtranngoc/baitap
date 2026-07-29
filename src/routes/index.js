@@ -24,7 +24,7 @@ router.get('/search', HomeController.search);
 router.get('/blogs/create', HomeController.create);
 
 
-router.post('/blogs/create', HomeController.index);
+router.post('/blogs/create', HomeController.store);
 
 
 // Login

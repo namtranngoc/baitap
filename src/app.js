@@ -4,6 +4,7 @@ const path = require('path');
 const { engine } = require('express-handlebars');
 const db = require('./config/db')
 const routes = require('./routes');
+const moment = require('moment');
 
 const app = express();
 
@@ -18,7 +19,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine(
     'hbs',
     engine({
-        extname: '.hbs'
+        extname: '.hbs',
+        helpers: {
+            dateFormat: function (date, format) {
+                return moment(date).format(format);
+            }
+        }
     })
 );
 
