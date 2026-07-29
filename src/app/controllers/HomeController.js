@@ -1,3 +1,4 @@
+const Blog = require('../models/Blogs');
 class HomeController {
 
 
@@ -32,14 +33,17 @@ class HomeController {
     }
 
 
-    store(req, res){
-
-        console.log(
-            "Dữ liệu nhận được:",
-            req.body
-        );
-
-        res.json(req.body);
+    index(req, res, next) {
+        // Dùng Model Blog để tìm kiếm toàn bộ dữ liệu trong Collection
+        Blog.find({})
+            .then(blogs => {
+                // Xuất mảng dữ liệu lấy được ra màn hình trình duyệt dưới định dạng JSON
+                res.json(blogs);
+            })
+            .catch(error => {
+                // Nếu có lỗi, chuyển đến middleware xử lý lỗi
+                next(error);
+            });
     }
 
 

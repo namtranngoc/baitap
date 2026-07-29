@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const { engine } = require('express-handlebars');
-
+const db = require('./config/db')
 const routes = require('./routes');
 
 const app = express();
@@ -36,6 +36,8 @@ app.use(express.json());
 
 // Routes
 app.use('/', routes);
+
+db.connect()
 
 
 module.exports = app;
