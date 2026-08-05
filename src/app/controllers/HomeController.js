@@ -1,107 +1,74 @@
 const Blog = require('../models/Blogs');
+
 class HomeController {
 
-
-    home(req, res, next){
-    Blog.find({})
-        .then(blogs => {
-            res.render('home', {
-                blogs: blogs
-            });
-        })
-        .catch(next);
-}
+    home(req, res, next) {
+        Blog.find({})
+            .lean()
+            .then(blogs => {
+                res.render('home', { blogs });
+            })
+            .catch(next);
+    }
 
 
-    about(req, res){
+    about(req, res) {
         res.render('about');
     }
 
 
-    contact(req, res){
+    contact(req, res) {
         res.render('contact');
     }
 
 
-    search(req, res){
-
-        console.log(
-            "Từ khóa tìm kiếm:",
-            req.query.q
-        );
-
-        res.render('search');
+    search(req, res) {
+        res.send('Trang tìm kiếm');
     }
 
 
-    create(req, res){
+    // Hiển thị trang đăng bài
+    create(req, res) {
         res.render('create');
     }
 
 
-    index(req, res, next) {
-        // Dùng Model Blog để tìm kiếm toàn bộ dữ liệu trong Collection
-        Blog.find({})
-            .then(blogs => {
-                // Xuất mảng dữ liệu lấy được ra màn hình trình duyệt dưới định dạng JSON
-                res.json(blogs);
-            })
-            .catch(error => {
-                // Nếu có lỗi, chuyển đến middleware xử lý lỗi
-                next(error);
-            });
-    }
-
+    // Lưu bài viết
     store(req, res, next) {
-    const blog = new Blog(req.body);
 
-    blog.save()
-        .then(() => {
-            res.redirect('/');
-        })
-        .catch(next);
+        const blog = new Blog({
+            name: req.body.name,
+            description: req.body.description,
+            content: req.body.content,
+
+            // tạo slug tự động từ tiêu đề
+            slug: req.body.name
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/[^a-z0-9\s-]/g, '')
+                .trim()
+                .replace(/\s+/g, '-')
+        });
+
+
+        blog.save()
+            .then(() => {
+                res.redirect('/');
+            })
+            .catch(next);
     }
 
 
-    login(req, res){
-
-        res.render('login');
-
+    login(req, res) {
+        res.send('Trang đăng nhập');
     }
 
 
-    checkLogin(req,res){
-
-        const {
-            username,
-            password
-        } = req.body;
-
-
-        if(
-            username === "admin" &&
-            password === "123456"
-        ){
-
-            console.log(
-                "Đăng nhập thành công"
-            );
-
-        }else{
-
-            console.log(
-                "Sai tài khoản hoặc mật khẩu"
-            );
-
-        }
-
-
-        res.send(
-            "Đã gửi dữ liệu."
-        );
-
+    checkLogin(req, res) {
+        res.send('Xử lý đăng nhập');
     }
-
 }
 
 

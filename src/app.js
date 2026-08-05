@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const { engine } = require('express-handlebars');
-const db = require('./config/db')
+const db = require('./config/db');
 const routes = require('./routes');
 const moment = require('moment');
 
@@ -41,9 +41,11 @@ app.use(express.json());
 
 
 // Routes
-app.use('/', routes);
+routes(app);
 
-db.connect()
+
+// Database
+db.connect();
 
 
 module.exports = app;
