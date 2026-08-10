@@ -1,153 +1,140 @@
-<main>
 
-    <div class="hero">
-        <div class="container">
+<div class="hero">
+    <div class="container">
 
-            <div class="left">
+        <div class="left">
 
-                <h1 class="h1">
-                    Hi, I'm <b>Julia&nbsp;Walker</b>.
-                    <br>Web Developer
-                </h1>
+            <h1 class="h1">
+                Hi, I'm <b>Hung&nbsp;Nguyen</b>.
+                <br>Web Developer
+            </h1>
 
-                <p class="h3">
-                    Specialized in <abbr title="Accessibility">a11y</abbr>
-                    and Core Web Vitals
-                </p>
+            <p class="h3">
+                Specialized in <abbr title="Accessibility">a11y</abbr>
+                and Core Web Vitals
+            </p>
 
-                <div>
-                    <a href="/contact" class="btn btn-primary">
-                        Contact Me
-                    </a>
+            <div>
+                <a href="/contact" class="btn btn-primary">
+                    Contact Me
+                </a>
 
-                    <a href="/about" class="btn btn-secondary">
-                        About Me
-                    </a>
-                </div>
-
-            </div>
-
-
-            <div class="right">
-
-                <div class="pattern-bg"></div>
-
-                <div class="img-box">
-                    <img src="/img/hero.png" alt="Julia Walker" class="hero-img">
-
-                    <div class="shape shape-1"></div>
-                    <div class="shape shape-2"></div>
-                </div>
-
+                <a href="/about" class="btn btn-secondary">
+                    About Me
+                </a>
             </div>
 
         </div>
+
+
+        <div class="right">
+
+            <div class="pattern-bg"></div>
+
+            <div class="img-box">
+                <img src="/img/hero.png" alt="Julia Walker" class="hero-img">
+
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+            </div>
+
+        </div>
+
     </div>
+</div>
 
 
 
-    <div class="main">
+<div class="main">
 
-        <div class="container">
-
-
-            <div class="blog">
-
-                <h2 class="h2">
-                    Latest Blog Post
-                </h2>
+    <div class="container">
 
 
+        <div class="blog">
 
-                <div class="blog-card-group">
-
-
-                    {{#each blogs}}
-
-
-                    <div class="blog-card">
-
-
-                        <div class="blog-card-banner">
-
-                            <img 
-                                src="{{this.image}}" 
-                                alt="{{this.name}}" 
-                                width="250"
-                                class="blog-banner-img">
-
-                        </div>
+            <h2 class="h2">
+                Latest Blog Post
+            </h2>
 
 
 
-
-                        <div class="blog-content-wrapper">
-
-
-                            <button class="blog-topic text-tiny">
-                                Blog
-                            </button>
+            <div class="blog-card-group">
 
 
+                {{#each blogs}}
 
-                            <h3>
 
-                                <a href="/blogs/{{this.slug}}" class="h3">
+                <div class="blog-card">
 
-                                    {{this.name}}
 
+                    <div class="blog-card-banner">
+
+                        <img 
+                            src="{{this.image}}" 
+                            alt="{{this.name}}" 
+                            width="250"
+                            class="blog-banner-img">
+
+                    </div>
+
+
+
+
+                    <div class="blog-content-wrapper">
+
+
+                        <button class="blog-topic text-tiny">
+                            Blog
+                        </button>
+
+
+
+                        <h3>
+
+                            <a href="/blogs/{{this.slug}}" class="h3">
+
+                                {{this.name}}
+
+                            </a>
+
+                        </h3>
+
+
+
+
+                        <p class="blog-text">
+
+                            {{this.description}}
+
+                        </p>
+
+
+
+
+                        <div class="wrapper-flex">
+
+
+
+
+
+                            <div class="wrapper">
+
+
+                                <a href="#" class="h4">
+                                    Admin
                                 </a>
 
-                            </h3>
 
 
+                                <p class="text-sm">
 
+                                    <time>
 
-                            <p class="blog-text">
+                                        {{this.createdAt}}
 
-                                {{this.description}}
+                                    </time>
 
-                            </p>
-
-
-
-
-                            <div class="wrapper-flex">
-
-
-                                <div class="profile-wrapper">
-
-                                    <img 
-                                        src="/img/user.png"
-                                        alt="Admin"
-                                        width="50">
-
-                                </div>
-
-
-
-
-                                <div class="wrapper">
-
-
-                                    <a href="#" class="h4">
-                                        Admin
-                                    </a>
-
-
-
-                                    <p class="text-sm">
-
-                                        <time>
-
-                                            {{this.createdAt}}
-
-                                        </time>
-
-                                    </p>
-
-
-                                </div>
+                                </p>
 
 
                             </div>
@@ -156,21 +143,121 @@
                         </div>
 
 
+                        <!-- =========================
+                             SỬA / XÓA BÀI VIẾT
+                        ========================== -->
+
+                        <div class="blog-card-actions">
+
+                            <a
+                                href="/blogs/{{this._id}}/edit"
+                                class="blog-action-btn edit"
+                            >
+
+                                <ion-icon name="create-outline"></ion-icon>
+
+                                <span>Sửa</span>
+
+                            </a>
+
+
+                            <form
+                                method="POST"
+                                action="/blogs/{{this._id}}?_method=DELETE"
+                                onsubmit="return confirm('Bạn có chắc muốn xóa bài viết này không?');"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="blog-action-btn delete"
+                                >
+
+                                    <ion-icon name="trash-outline"></ion-icon>
+
+                                    <span>Xóa</span>
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
                     </div>
-
-
-                    {{/each}}
 
 
                 </div>
 
 
+                {{/each}}
 
 
-                <button class="btn load-more">
-                    Load More
-                </button>
+            </div>
 
+
+
+
+            <button class="btn load-more">
+                Load More
+            </button>
+
+
+
+        </div>
+
+
+
+
+
+        <div class="aside">
+
+
+            <div class="topics">
+
+                <h2 class="h2">
+                    Topics
+                </h2>
+
+
+                <a href="#" class="topic-btn">
+
+                    <div class="icon-box">
+                        <ion-icon name="server-outline"></ion-icon>
+                    </div>
+
+                    <p>
+                        Database
+                    </p>
+
+                </a>
+
+
+
+                <a href="#" class="topic-btn">
+
+                    <div class="icon-box">
+                        <ion-icon name="accessibility-outline"></ion-icon>
+                    </div>
+
+                    <p>
+                        Accessibility
+                    </p>
+
+                </a>
+
+
+
+                <a href="#" class="topic-btn">
+
+                    <div class="icon-box">
+                        <ion-icon name="rocket-outline"></ion-icon>
+                    </div>
+
+                    <p>
+                        Web Performance
+                    </p>
+
+                </a>
 
 
             </div>
@@ -179,155 +266,94 @@
 
 
 
-            <div class="aside">
+            <div class="tags">
+
+                <h2 class="h2">
+                    Tags
+                </h2>
 
 
-                <div class="topics">
+                <div class="wrapper">
 
-                    <h2 class="h2">
-                        Topics
-                    </h2>
+                    <button class="hashtag">
+                        #mongodb
+                    </button>
+
+                    <button class="hashtag">
+                        #nodejs
+                    </button>
+
+                    <button class="hashtag">
+                        #a11y
+                    </button>
+
+                    <button class="hashtag">
+                        #webperf
+                    </button>
+
+                </div>
 
 
-                    <a href="#" class="topic-btn">
-
-                        <div class="icon-box">
-                            <ion-icon name="server-outline"></ion-icon>
-                        </div>
-
-                        <p>
-                            Database
-                        </p>
-
-                    </a>
-
-
-
-                    <a href="#" class="topic-btn">
-
-                        <div class="icon-box">
-                            <ion-icon name="accessibility-outline"></ion-icon>
-                        </div>
-
-                        <p>
-                            Accessibility
-                        </p>
-
-                    </a>
+            </div>
 
 
 
-                    <a href="#" class="topic-btn">
 
-                        <div class="icon-box">
-                            <ion-icon name="rocket-outline"></ion-icon>
-                        </div>
+            <div class="contact">
 
-                        <p>
-                            Web Performance
-                        </p>
+                <h2 class="h2">
+                    Let's Talk
+                </h2>
 
-                    </a>
+
+                <div class="wrapper">
+
+                    <p>
+                        Do you want to learn more about how I can help your company overcome problems?
+                    </p>
 
 
                 </div>
 
 
+            </div>
 
 
 
-                <div class="tags">
-
-                    <h2 class="h2">
-                        Tags
-                    </h2>
 
 
-                    <div class="wrapper">
+            <div class="newsletter">
 
-                        <button class="hashtag">
-                            #mongodb
+                <h2 class="h2">
+                    Newsletter
+                </h2>
+
+
+                <div class="wrapper">
+
+                    <p>
+                        Subscribe to our newsletter.
+                    </p>
+
+
+                    <form action="#">
+
+                        <input 
+                            type="email"
+                            name="email"
+                            placeholder="Email Address"
+                            required>
+
+
+                        <button type="submit" class="btn btn-primary">
+                            Subscribe
                         </button>
 
-                        <button class="hashtag">
-                            #nodejs
-                        </button>
 
-                        <button class="hashtag">
-                            #a11y
-                        </button>
-
-                        <button class="hashtag">
-                            #webperf
-                        </button>
-
-                    </div>
+                    </form>
 
 
                 </div>
-
-
-
-
-                <div class="contact">
-
-                    <h2 class="h2">
-                        Let's Talk
-                    </h2>
-
-
-                    <div class="wrapper">
-
-                        <p>
-                            Do you want to learn more about how I can help your company overcome problems?
-                        </p>
-
-
-                    </div>
-
-
-                </div>
-
-
-
-
-
-                <div class="newsletter">
-
-                    <h2 class="h2">
-                        Newsletter
-                    </h2>
-
-
-                    <div class="wrapper">
-
-                        <p>
-                            Subscribe to our newsletter.
-                        </p>
-
-
-                        <form action="#">
-
-                            <input 
-                                type="email"
-                                name="email"
-                                placeholder="Email Address"
-                                required>
-
-
-                            <button type="submit" class="btn btn-primary">
-                                Subscribe
-                            </button>
-
-
-                        </form>
-
-
-                    </div>
-
-
-                </div>
-
 
 
             </div>
@@ -337,8 +363,8 @@
         </div>
 
 
+
     </div>
 
 
-
-</main>
+</div>

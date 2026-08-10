@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 
@@ -5,15 +6,46 @@ const BlogController = require('../app/controllers/BlogController');
 const HomeController = require('../app/controllers/HomeController');
 
 
-// Trang tạo bài viết
+// ========================================
+// TRANG TẠO BÀI VIẾT
+// ========================================
+
 router.get('/create', HomeController.create);
 
 
-// Lưu bài viết
+// ========================================
+// LƯU BÀI VIẾT
+// ========================================
+
 router.post('/create', HomeController.store);
 
 
-// Chi tiết bài viết (để cuối cùng)
+// ========================================
+// TRANG SỬA BÀI VIẾT
+// ========================================
+
+router.get('/:id/edit', HomeController.edit);
+
+
+// ========================================
+// CẬP NHẬT BÀI VIẾT
+// ========================================
+
+router.put('/:id', HomeController.update);
+
+
+// ========================================
+// XÓA BÀI VIẾT
+// ========================================
+
+router.delete('/:id', HomeController.delete);
+
+
+// ========================================
+// CHI TIẾT BÀI VIẾT
+// ĐỂ CUỐI CÙNG
+// ========================================
+
 router.get('/:slug', BlogController.show);
 
 

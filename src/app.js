@@ -1,3 +1,4 @@
+const methodOverride = require('method-override');
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
@@ -8,7 +9,7 @@ const moment = require('moment');
 
 const app = express();
 
-
+app.use(methodOverride('_method'));
 // Middleware
 app.use(morgan('combined'));
 

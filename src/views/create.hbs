@@ -1,22 +1,360 @@
-<div class="mt-4">
-    <h3>Đăng bài Blog mới</h3>
 
-    <form method="POST" action="/blogs/create">
-        <div class="form-group">
-            <label for="name">Tiêu đề bài viết</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tiêu đề...">
+<div class="blog-create-page">
+
+    <div class="blog-create-container">
+
+        <!-- Header -->
+        <div class="blog-create-header">
+            <div>
+                <span class="blog-create-badge">
+                    <i class="bi bi-pencil-square"></i>
+                    Quản lý bài viết
+                </span>
+
+                <h1>Đăng bài viết mới</h1>
+
+                <p>
+                    Tạo một bài viết mới và chia sẻ nội dung của bạn.
+                </p>
+            </div>
+
+            <a href="/blogs" class="btn-back">
+                <i class="bi bi-arrow-left"></i>
+                Danh sách bài viết
+            </a>
         </div>
 
-        <div class="form-group">
-            <label for="description">Mô tả ngắn</label>
-            <input type="text" class="form-control" id="description" name="description" placeholder="Nhập tóm tắt bài viết...">
-        </div>
 
-        <div class="form-group">
-            <label for="content">Nội dung chi tiết</label>
-            <textarea class="form-control" id="content" name="content" rows="5" placeholder="Nhập nội dung..."></textarea>
-        </div>
+        <form method="POST"
+              action="/blogs/create"
+              class="blog-create-form"
+              id="blogCreateForm">
 
-        <button type="submit" class="btn btn-primary mt-2">Đăng bài</button>
-    </form>
+            <div class="row g-4">
+
+                <!-- =========================
+                     FORM
+                ========================== -->
+                <div class="col-lg-8">
+
+                    <div class="blog-form-card">
+
+                        <!-- Tiêu đề -->
+                        <div class="form-section">
+
+                            <label for="name" class="form-label-custom">
+                                Tiêu đề bài viết
+                                <span>*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control-custom"
+                                id="name"
+                                name="name"
+                                placeholder="Nhập tiêu đề bài viết..."
+                                maxlength="200"
+                                required
+                            >
+
+                            <div class="input-helper">
+                                Tiêu đề ngắn gọn, dễ đọc và thu hút người xem.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Mô tả -->
+                        <div class="form-section">
+
+                            <label for="description" class="form-label-custom">
+                                Mô tả ngắn
+                                <span>*</span>
+                            </label>
+
+                            <textarea
+                                class="form-control-custom"
+                                id="description"
+                                name="description"
+                                rows="3"
+                                maxlength="500"
+                                placeholder="Nhập mô tả ngắn cho bài viết..."
+                                required
+                            ></textarea>
+
+                            <div class="input-helper">
+                                <span id="descriptionCount">0</span>/500 ký tự
+                            </div>
+
+                        </div>
+
+
+                        <!-- Link ảnh -->
+                        <div class="form-section">
+
+                            <label for="image" class="form-label-custom">
+                                Ảnh bài viết
+                            </label>
+
+                            <div class="image-url-input">
+
+                                <div class="image-url-icon">
+                                    <i class="bi bi-image"></i>
+                                </div>
+
+                                <input
+                                    type="url"
+                                    class="form-control-custom"
+                                    id="image"
+                                    name="image"
+                                    placeholder="https://example.com/image.jpg"
+                                >
+
+                            </div>
+
+                            <div class="input-helper">
+                                Nhập link trực tiếp đến hình ảnh.
+                            </div>
+
+
+                            <!-- Preview ảnh -->
+                            <div class="image-preview" id="imagePreview">
+
+                                <div class="image-preview-empty">
+                                    <i class="bi bi-image"></i>
+                                    <span>Preview hình ảnh</span>
+                                </div>
+
+                                <img
+                                    id="previewImage"
+                                    src=""
+                                    alt="Preview"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Nội dung -->
+                        <div class="form-section">
+
+                            <label for="content" class="form-label-custom">
+                                Nội dung chi tiết
+                                <span>*</span>
+                            </label>
+
+                            <textarea
+                                class="form-control-custom content-textarea"
+                                id="content"
+                                name="content"
+                                rows="14"
+                                placeholder="Nhập nội dung chi tiết của bài viết..."
+                                required
+                            ></textarea>
+
+                            <div class="input-helper">
+                                Bạn có thể nhập nội dung bài viết tại đây.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Buttons -->
+                        <div class="form-actions">
+
+                            <a href="/blogs" class="btn-cancel">
+                                Hủy
+                            </a>
+
+                            <button
+                                type="button"
+                                class="btn-preview"
+                                id="openPreview"
+                            >
+                                <i class="bi bi-eye"></i>
+                                Xem trước
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="btn-submit"
+                            >
+                                <i class="bi bi-send"></i>
+                                Đăng bài
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     SIDEBAR
+                ========================== -->
+                <div class="col-lg-4">
+
+                    <div class="blog-side-card">
+
+                        <div class="side-card-header">
+                            <i class="bi bi-lightbulb"></i>
+                            <h5>Mẹo viết bài</h5>
+                        </div>
+
+                        <div class="tip-item">
+                            <div class="tip-icon">
+                                <i class="bi bi-check-lg"></i>
+                            </div>
+
+                            <div>
+                                <strong>Tiêu đề rõ ràng</strong>
+                                <p>
+                                    Nên ngắn gọn và thể hiện đúng nội dung bài viết.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="tip-item">
+                            <div class="tip-icon">
+                                <i class="bi bi-image"></i>
+                            </div>
+
+                            <div>
+                                <strong>Ảnh chất lượng</strong>
+                                <p>
+                                    Sử dụng hình ảnh rõ nét và phù hợp với nội dung.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="tip-item">
+                            <div class="tip-icon">
+                                <i class="bi bi-text-paragraph"></i>
+                            </div>
+
+                            <div>
+                                <strong>Nội dung dễ đọc</strong>
+                                <p>
+                                    Chia nội dung thành các đoạn ngắn để dễ theo dõi.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Quick info -->
+                    <div class="blog-side-card blog-info-card">
+
+                        <div class="side-card-header">
+                            <i class="bi bi-info-circle"></i>
+                            <h5>Thông tin</h5>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Trạng thái</span>
+                            <strong class="status-draft">
+                                Bản nháp
+                            </strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Loại</span>
+                            <strong>Bài viết</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
 </div>
+
+
+<!-- =========================
+     PREVIEW MODAL
+========================== -->
+
+<div class="preview-modal" id="previewModal">
+
+    <div class="preview-modal-overlay" id="closePreview"></div>
+
+    <div class="preview-modal-content">
+
+        <div class="preview-modal-header">
+
+            <h4>
+                <i class="bi bi-eye"></i>
+                Xem trước bài viết
+            </h4>
+
+            <button
+                type="button"
+                class="preview-close"
+                id="closePreviewButton"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+        </div>
+
+
+        <div class="preview-modal-body">
+
+            <article class="blog-preview">
+
+                <img
+                    id="previewModalImage"
+                    class="blog-preview-image"
+                    src=""
+                    alt=""
+                >
+
+                <div class="blog-preview-content">
+
+                    <div class="blog-preview-meta">
+                        <i class="bi bi-calendar3"></i>
+                        Bài viết mới
+                    </div>
+
+                    <h1 id="previewTitle">
+                        Tiêu đề bài viết
+                    </h1>
+
+                    <p
+                        class="blog-preview-description"
+                        id="previewDescription"
+                    >
+                        Mô tả bài viết...
+                    </p>
+
+                    <hr>
+
+                    <div
+                        class="blog-preview-text"
+                        id="previewContent"
+                    >
+                        Nội dung bài viết...
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="/js/blog-create.js"></script>

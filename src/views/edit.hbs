@@ -1,0 +1,187 @@
+
+<div class="blog-create-page">
+
+    <div class="blog-create-container">
+
+        <div class="blog-create-header">
+
+            <div>
+
+                <span class="blog-create-badge">
+                    <i class="fas fa-edit"></i>
+                    Chỉnh sửa bài viết
+                </span>
+
+                <h1>
+                    Sửa bài viết
+                </h1>
+
+                <p>
+                    Cập nhật nội dung bài viết của bạn
+                </p>
+
+            </div>
+
+
+            <a href="/" class="btn-back">
+
+                <i class="fas fa-arrow-left"></i>
+
+                Quay lại
+
+            </a>
+
+        </div>
+
+
+
+        <div class="blog-form-card">
+
+            <form
+                method="POST"
+                action="/blogs/{{blog._id}}?_method=PUT"
+            >
+
+
+                <!-- TIÊU ĐỀ -->
+
+                <div class="form-section">
+
+                    <label
+                        for="name"
+                        class="form-label-custom"
+                    >
+                        Tiêu đề bài viết
+                        <span>*</span>
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        class="form-control-custom"
+                        value="{{blog.name}}"
+                        placeholder="Nhập tiêu đề..."
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- MÔ TẢ -->
+
+                <div class="form-section">
+
+                    <label
+                        for="description"
+                        class="form-label-custom"
+                    >
+                        Mô tả ngắn
+                        <span>*</span>
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        class="form-control-custom"
+                        value="{{blog.description}}"
+                        placeholder="Nhập mô tả bài viết..."
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- LINK ẢNH -->
+
+                <div class="form-section">
+
+                    <label
+                        for="image"
+                        class="form-label-custom"
+                    >
+                        Link hình ảnh
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="image"
+                        name="image"
+                        class="form-control-custom"
+                        value="{{blog.image}}"
+                        placeholder="https://example.com/image.jpg"
+                    >
+
+                </div>
+
+
+
+                <!-- NỘI DUNG -->
+
+                <div class="form-section">
+
+                    <label
+                        for="content"
+                        class="form-label-custom"
+                    >
+                        Nội dung chi tiết
+                        <span>*</span>
+                    </label>
+
+
+                    <textarea
+                        id="content"
+                        name="content"
+                        class="form-control-custom content-textarea"
+                        rows="10"
+                        placeholder="Nhập nội dung bài viết..."
+                        required
+                    >{{blog.content}}</textarea>
+
+                </div>
+
+
+
+                <!-- BUTTON -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="/"
+                        class="btn-cancel"
+                    >
+
+                        <i class="fas fa-times"></i>
+
+                        Hủy
+
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="btn-submit"
+                    >
+
+                        <i class="fas fa-save"></i>
+
+                        Lưu thay đổi
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
