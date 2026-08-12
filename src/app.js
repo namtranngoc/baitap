@@ -41,12 +41,12 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 
+// Database
+db.connect();
+
 // Routes
 routes(app);
 
-
-// Database
-db.connect();
 
 
 module.exports = app;
