@@ -10,13 +10,10 @@ const moment = require('moment');
 const app = express();
 
 app.use(methodOverride('_method'));
-// Middleware
 app.use(morgan('combined'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-// Handlebars
 app.engine(
     'hbs',
     engine({
@@ -32,21 +29,23 @@ app.engine(
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-
-// Xử lý form
 app.use(express.urlencoded({
     extended: true
 }));
 
 app.use(express.json());
 
-
-// Database
-db.connect();
+// Kết nối MongoDB trước khi xử lý request
+app.use(async (req, res, next) => {
+    try {
+        await db.connect();
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
 
 // Routes
 routes(app);
-
-
 
 module.exports = app;

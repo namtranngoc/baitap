@@ -1,12 +1,24 @@
 const mongoose = require('mongoose');
 
+let isConnected = false;
+
 async function connect() {
+    if (isConnected) {
+        return;
+    }
+
     try {
+        if (!process.env.MONGODB_URI) {
+            throw new Error('MONGODB_URI chưa được thiết lập');
+        }
+
         await mongoose.connect(process.env.MONGODB_URI);
-        console.log('✅ Kết nối Database thành công!');
+
+        isConnected = true;
+        console.log('✅ Kết nối MongoDB thành công!');
     } catch (error) {
-        console.log('❌ Kết nối Database thất bại!');
-        console.log(error);
+        console.error('❌ MongoDB connection error:', error.message);
+        throw error;
     }
 }
 
