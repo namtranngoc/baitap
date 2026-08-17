@@ -142,8 +142,7 @@ class HomeController {
 
                 slug: newSlug,
 
-                // Cập nhật thời gian sửa
-                updatedAt: Date.now()
+                
             },
 
             {
