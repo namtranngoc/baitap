@@ -9,6 +9,8 @@ router.get('/about', HomeController.about);
 
 router.get('/contact', HomeController.contact);
 
+router.post('/contact', HomeController.sendContact);
+
 router.get('/search', HomeController.search);
 
 router.get('/blogs/create', HomeController.create);
