@@ -30,7 +30,18 @@ class HomeController {
     contact(req, res) {
         res.render('contact');
     }
+sendContact(req, res) {
 
+    const { name, email, message } = req.body;
+
+    console.log('Họ tên:', name);
+    console.log('Email:', email);
+    console.log('Nội dung:', message);
+
+    res.render('contact', {
+        success: 'Gửi liên hệ thành công!'
+    });
+}
 
     // =========================
     // TÌM KIẾM
