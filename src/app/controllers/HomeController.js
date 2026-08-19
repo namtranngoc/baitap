@@ -34,12 +34,12 @@ sendContact(req, res) {
 
     const { name, email, message } = req.body;
 
-    console.log('Họ tên:', name);
+    console.log('Name', name);
     console.log('Email:', email);
-    console.log('Nội dung:', message);
+    console.log('Message:', message);
 
     res.render('contact', {
-        success: 'Gửi liên hệ thành công!'
+        success: 'Your message has been sent successfully!'
     });
 }
 
