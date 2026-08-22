@@ -1,4 +1,4 @@
-```js
+
 const Blog = require('../models/Blogs');
 
 class HomeController {
@@ -424,4 +424,3 @@ class HomeController {
 
 
 module.exports = new HomeController();
-```
