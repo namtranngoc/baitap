@@ -1,35 +1,145 @@
+```js
 const Blog = require('../models/Blogs');
 
 class HomeController {
 
     // =========================
-    // TRANG CHỦ
+    // TRANG CHỦ + PHÂN TRANG
     // =========================
     home(req, res, next) {
-        Blog.find({})
-            .lean()
-            .then(blogs => {
 
-                // Format ngày sang tiếng Việt
-                const formatter = new Intl.DateTimeFormat('vi-VN', {
-                    weekday: 'long',
-                    day: '2-digit',
-                    month: 'long',
-                    year: 'numeric'
-                });
+        // Trang hiện tại
+        const page = Math.max(
+            parseInt(req.query.page) || 1,
+            1
+        );
 
-                // Thêm createdAtVN vào từng bài viết
+        // Số bài viết trên mỗi trang
+        const limit = 6;
+
+        // Số bài cần bỏ qua
+        const skip = (page - 1) * limit;
+
+
+        // =========================
+        // LẤY TỔNG SỐ BÀI + BÀI VIẾT
+        // =========================
+
+        Promise.all([
+
+            // Đếm tổng số bài viết
+            Blog.countDocuments({}),
+
+            // Lấy bài viết
+            Blog.find({})
+
+                // BÀI MỚI NHẤT LÊN ĐẦU
+                .sort({
+                    createdAt: -1
+                })
+
+                // PHÂN TRANG
+                .skip(skip)
+                .limit(limit)
+
+                // Chuyển sang object
+                .lean()
+
+        ])
+
+            .then(([totalBlogs, blogs]) => {
+
+                // =========================
+                // TÍNH TỔNG SỐ TRANG
+                // =========================
+
+                const totalPages = Math.ceil(
+                    totalBlogs / limit
+                );
+
+
+                // =========================
+                // FORMAT NGÀY TIẾNG VIỆT
+                // =========================
+
+                const formatter = new Intl.DateTimeFormat(
+                    'vi-VN',
+                    {
+                        weekday: 'long',
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric'
+                    }
+                );
+
+
+                // Thêm ngày tiếng Việt vào từng bài
                 const blogsWithDate = blogs.map(blog => ({
+
                     ...blog,
+
                     createdAtVN: blog.createdAt
-                        ? formatter.format(new Date(blog.createdAt))
+                        ? formatter.format(
+                            new Date(blog.createdAt)
+                        )
                         : ''
+
                 }));
 
+
+                // =========================
+                // TẠO DANH SÁCH SỐ TRANG
+                // =========================
+
+                const pages = [];
+
+                for (let i = 1; i <= totalPages; i++) {
+
+                    pages.push({
+
+                        number: i,
+
+                        active: i === page
+
+                    });
+
+                }
+
+
+                // =========================
+                // HIỂN THỊ TRANG CHỦ
+                // =========================
+
                 res.render('home', {
-                    blogs: blogsWithDate
+
+                    // Danh sách bài viết
+                    blogs: blogsWithDate,
+
+                    // Trang hiện tại
+                    currentPage: page,
+
+                    // Tổng số trang
+                    totalPages: totalPages,
+
+                    // Danh sách số trang
+                    pages: pages,
+
+                    // Có trang trước không
+                    hasPrevious: page > 1,
+
+                    // Có trang sau không
+                    hasNext: page < totalPages,
+
+                    // Trang trước
+                    previousPage: page - 1,
+
+                    // Trang sau
+                    nextPage: page + 1
+
                 });
+
             })
+
             .catch(next);
     }
 
@@ -38,7 +148,9 @@ class HomeController {
     // TRANG GIỚI THIỆU
     // =========================
     about(req, res) {
+
         res.render('about');
+
     }
 
 
@@ -46,7 +158,9 @@ class HomeController {
     // TRANG LIÊN HỆ
     // =========================
     contact(req, res) {
+
         res.render('contact');
+
     }
 
 
@@ -61,13 +175,19 @@ class HomeController {
             message
         } = req.body;
 
-        console.log('Name:', name);
+
+        console.log('Họ và tên:', name);
         console.log('Email:', email);
-        console.log('Message:', message);
+        console.log('Tin nhắn:', message);
+
 
         res.render('contact', {
-            success: 'Tin nhắn của bạn đã được gửi thành công!'
+
+            success:
+                'Tin nhắn của bạn đã được gửi thành công!'
+
         });
+
     }
 
 
@@ -75,7 +195,9 @@ class HomeController {
     // TÌM KIẾM
     // =========================
     search(req, res) {
+
         res.send('Trang tìm kiếm');
+
     }
 
 
@@ -83,7 +205,9 @@ class HomeController {
     // TRANG ĐĂNG BÀI
     // =========================
     create(req, res) {
+
         res.render('create');
+
     }
 
 
@@ -113,12 +237,18 @@ class HomeController {
                 .replace(/[^a-z0-9\s-]/g, '')
                 .trim()
                 .replace(/\s+/g, '-')
+
         });
 
+
         blog.save()
+
             .then(() => {
+
                 res.redirect('/');
+
             })
+
             .catch(next);
     }
 
@@ -129,22 +259,32 @@ class HomeController {
     edit(req, res, next) {
 
         Blog.findOne({
+
             _id: req.params.id
+
         })
+
             .lean()
+
             .then(blog => {
 
                 if (!blog) {
+
                     return res.status(404).send(
                         'Không tìm thấy bài viết'
                     );
+
                 }
 
+
                 res.render('edit', {
+
                     blog
+
                 });
 
             })
+
             .catch(next);
     }
 
@@ -155,19 +295,40 @@ class HomeController {
     update(req, res, next) {
 
         const newSlug = req.body.name
+
             .toLowerCase()
+
             .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/đ/g, 'd')
-            .replace(/[^a-z0-9\s-]/g, '')
+
+            .replace(
+                /[\u0300-\u036f]/g,
+                ''
+            )
+
+            .replace(
+                /đ/g,
+                'd'
+            )
+
+            .replace(
+                /[^a-z0-9\s-]/g,
+                ''
+            )
+
             .trim()
-            .replace(/\s+/g, '-');
+
+            .replace(
+                /\s+/g,
+                '-'
+            );
+
 
         Blog.findByIdAndUpdate(
 
             req.params.id,
 
             {
+
                 name: req.body.name,
 
                 description: req.body.description,
@@ -180,24 +341,34 @@ class HomeController {
 
                 // Slug mới
                 slug: newSlug
+
             },
 
             {
+
                 new: true,
+
                 runValidators: true
+
             }
+
         )
+
             .then(blog => {
 
                 if (!blog) {
+
                     return res.status(404).send(
                         'Không tìm thấy bài viết'
                     );
+
                 }
+
 
                 res.redirect('/');
 
             })
+
             .catch(next);
     }
 
@@ -207,18 +378,25 @@ class HomeController {
     // =========================
     delete(req, res, next) {
 
-        Blog.findByIdAndDelete(req.params.id)
+        Blog.findByIdAndDelete(
+            req.params.id
+        )
+
             .then(blog => {
 
                 if (!blog) {
+
                     return res.status(404).send(
                         'Không tìm thấy bài viết'
                     );
+
                 }
+
 
                 res.redirect('/');
 
             })
+
             .catch(next);
     }
 
@@ -227,7 +405,9 @@ class HomeController {
     // ĐĂNG NHẬP
     // =========================
     login(req, res) {
+
         res.send('Trang đăng nhập');
+
     }
 
 
@@ -235,9 +415,13 @@ class HomeController {
     // XỬ LÝ ĐĂNG NHẬP
     // =========================
     checkLogin(req, res) {
+
         res.send('Xử lý đăng nhập');
+
     }
+
 }
 
 
 module.exports = new HomeController();
+```
