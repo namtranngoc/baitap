@@ -8,22 +8,19 @@ class HomeController {
     // =========================
     home(req, res, next) {
 
-        // Trang hiện tại
+        // Lấy số trang từ URL
+        // Ví dụ: /?page=2
         const page = Math.max(
             parseInt(req.query.page) || 1,
             1
         );
 
-        // Số bài viết trên mỗi trang
-        const limit = 6;
+        // MỖI TRANG 3 BÀI VIẾT
+        const limit = 3;
 
-        // Số bài cần bỏ qua
+        // Tính số bài cần bỏ qua
         const skip = (page - 1) * limit;
 
-
-        // =========================
-        // LẤY TỔNG SỐ BÀI + BÀI VIẾT
-        // =========================
 
         Promise.all([
 
@@ -38,7 +35,7 @@ class HomeController {
                     createdAt: -1
                 })
 
-                // PHÂN TRANG
+                // Phân trang
                 .skip(skip)
                 .limit(limit)
 
@@ -73,7 +70,7 @@ class HomeController {
                 );
 
 
-                // Thêm ngày tiếng Việt vào từng bài
+                // Thêm ngày tiếng Việt
                 const blogsWithDate = blogs.map(blog => ({
 
                     ...blog,
@@ -107,7 +104,7 @@ class HomeController {
 
 
                 // =========================
-                // HIỂN THỊ TRANG CHỦ
+                // HIỂN THỊ TRANG
                 // =========================
 
                 res.render('home', {
@@ -121,13 +118,13 @@ class HomeController {
                     // Tổng số trang
                     totalPages: totalPages,
 
-                    // Danh sách số trang
+                    // Danh sách trang
                     pages: pages,
 
-                    // Có trang trước không
+                    // Có trang trước
                     hasPrevious: page > 1,
 
-                    // Có trang sau không
+                    // Có trang sau
                     hasNext: page < totalPages,
 
                     // Trang trước
@@ -222,13 +219,11 @@ class HomeController {
 
             description: req.body.description,
 
-            // Nội dung chi tiết
             content: req.body.content,
 
-            // Link ảnh
             image: req.body.image,
 
-            // Tạo slug tự động từ tiêu đề
+            // Tạo slug tự động
             slug: req.body.name
                 .toLowerCase()
                 .normalize('NFD')
@@ -333,13 +328,10 @@ class HomeController {
 
                 description: req.body.description,
 
-                // Nội dung chi tiết
                 content: req.body.content,
 
-                // Link ảnh
                 image: req.body.image,
 
-                // Slug mới
                 slug: newSlug
 
             },
