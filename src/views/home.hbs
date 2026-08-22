@@ -1,26 +1,49 @@
+
 <div class="hero">
+
     <div class="container">
 
         <div class="left">
 
             <h1 class="h1">
-                Xin chào, tôi là <b>Hung&nbsp;Nguyen</b>.
-                <br>Lập trình viên Web
+
+                Xin chào, tôi là
+                <b>Hung&nbsp;Nguyen</b>.
+
+                <br>
+
+                Lập trình viên Web
+
             </h1>
 
+
             <p class="h3">
-                Chuyên về <abbr title="Khả năng tiếp cận">khả năng tiếp cận</abbr>
-                và hiệu suất website
+
+                Chuyên về phát triển website
+                và hiệu suất Web
+
             </p>
 
+
             <div>
-                <a href="/contact" class="btn btn-primary">
+
+                <a
+                    href="/contact"
+                    class="btn btn-primary">
+
                     Liên hệ với tôi
+
                 </a>
 
-                <a href="/about" class="btn btn-secondary">
+
+                <a
+                    href="/about"
+                    class="btn btn-secondary">
+
                     Giới thiệu
+
                 </a>
+
             </div>
 
         </div>
@@ -30,14 +53,17 @@
 
             <div class="pattern-bg"></div>
 
+
             <div class="img-box">
 
                 <img
                     src="/img/hero.png"
-                    alt="Ảnh đại diện Hung Nguyen"
+                    alt="Ảnh đại diện"
                     class="hero-img">
 
+
                 <div class="shape shape-1"></div>
+
                 <div class="shape shape-2"></div>
 
             </div>
@@ -45,7 +71,9 @@
         </div>
 
     </div>
+
 </div>
+
 
 
 <div class="main">
@@ -59,8 +87,11 @@
 
         <div class="blog">
 
+
             <h2 class="h2">
+
                 Bài viết mới nhất
+
             </h2>
 
 
@@ -73,7 +104,7 @@
                 <div class="blog-card">
 
 
-                    <!-- ẢNH BÀI VIẾT -->
+                    <!-- ẢNH -->
 
                     <div class="blog-card-banner">
 
@@ -86,13 +117,16 @@
                     </div>
 
 
-                    <!-- NỘI DUNG BÀI VIẾT -->
+                    <!-- NỘI DUNG -->
 
                     <div class="blog-content-wrapper">
 
 
-                        <button class="blog-topic text-tiny">
+                        <button
+                            class="blog-topic text-tiny">
+
                             Bài viết
+
                         </button>
 
 
@@ -120,7 +154,7 @@
                         </p>
 
 
-                        <!-- THÔNG TIN BÀI VIẾT -->
+                        <!-- THÔNG TIN -->
 
                         <div class="wrapper-flex">
 
@@ -128,8 +162,12 @@
                             <div class="wrapper">
 
 
-                                <a href="#" class="h4">
+                                <a
+                                    href="#"
+                                    class="h4">
+
                                     Quản trị viên
+
                                 </a>
 
 
@@ -148,12 +186,11 @@
 
                             </div>
 
-
                         </div>
 
 
                         <!-- =========================
-                             NÚT SỬA / XÓA
+                             SỬA / XÓA
                         ========================== -->
 
                         <div class="blog-card-actions">
@@ -169,7 +206,12 @@
                                     name="create-outline">
                                 </ion-icon>
 
-                                <span>Sửa</span>
+
+                                <span>
+
+                                    Sửa
+
+                                </span>
 
                             </a>
 
@@ -190,19 +232,21 @@
                                         name="trash-outline">
                                     </ion-icon>
 
-                                    <span>Xóa</span>
+
+                                    <span>
+
+                                        Xóa
+
+                                    </span>
 
                                 </button>
 
 
                             </form>
 
-
                         </div>
 
-
                     </div>
-
 
                 </div>
 
@@ -213,14 +257,108 @@
             </div>
 
 
-            <!-- XEM THÊM -->
+            <!-- =========================
+                 PHÂN TRANG
+            ========================== -->
 
-            <button class="btn load-more">
-                Xem thêm bài viết
-            </button>
+            {{#if totalPages}}
+
+                {{#if hasPrevious}}
+
+                    <div class="pagination">
+
+                        <a
+                            href="/?page={{previousPage}}"
+                            class="btn btn-secondary">
+
+                            ← Trang trước
+
+                        </a>
+
+                    </div>
+
+                {{/if}}
+
+
+                <div
+                    class="pagination"
+                    style="
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 8px;
+                        margin: 30px 0;
+                        flex-wrap: wrap;
+                    ">
+
+
+                    <!-- TRANG TRƯỚC -->
+
+                    {{#if hasPrevious}}
+
+                        <a
+                            href="/?page={{previousPage}}"
+                            class="btn btn-secondary">
+
+                            ← Trang trước
+
+                        </a>
+
+                    {{/if}}
+
+
+                    <!-- SỐ TRANG -->
+
+                    {{#each pages}}
+
+                        {{#if active}}
+
+                            <a
+                                href="/?page={{number}}"
+                                class="btn btn-primary">
+
+                                {{number}}
+
+                            </a>
+
+                        {{else}}
+
+                            <a
+                                href="/?page={{number}}"
+                                class="btn btn-secondary">
+
+                                {{number}}
+
+                            </a>
+
+                        {{/if}}
+
+                    {{/each}}
+
+
+                    <!-- TRANG SAU -->
+
+                    {{#if hasNext}}
+
+                        <a
+                            href="/?page={{nextPage}}"
+                            class="btn btn-secondary">
+
+                            Trang sau →
+
+                        </a>
+
+                    {{/if}}
+
+
+                </div>
+
+
+            {{/if}}
 
 
         </div>
+
 
 
         <!-- =========================
@@ -230,132 +368,177 @@
         <div class="aside">
 
 
-            <!-- =========================
-                 CHỦ ĐỀ
-            ========================== -->
+            <!-- CHỦ ĐỀ -->
 
             <div class="topics">
 
                 <h2 class="h2">
+
                     Chủ đề
+
                 </h2>
 
 
-                <a href="#" class="topic-btn">
+                <a
+                    href="#"
+                    class="topic-btn">
 
                     <div class="icon-box">
-                        <ion-icon name="server-outline"></ion-icon>
+
+                        <ion-icon
+                            name="server-outline">
+                        </ion-icon>
+
                     </div>
 
+
                     <p>
+
                         Cơ sở dữ liệu
+
                     </p>
 
                 </a>
 
 
-                <a href="#" class="topic-btn">
+                <a
+                    href="#"
+                    class="topic-btn">
 
                     <div class="icon-box">
-                        <ion-icon name="accessibility-outline"></ion-icon>
+
+                        <ion-icon
+                            name="accessibility-outline">
+                        </ion-icon>
+
                     </div>
 
+
                     <p>
+
                         Khả năng tiếp cận
+
                     </p>
 
                 </a>
 
 
-                <a href="#" class="topic-btn">
+                <a
+                    href="#"
+                    class="topic-btn">
 
                     <div class="icon-box">
-                        <ion-icon name="rocket-outline"></ion-icon>
+
+                        <ion-icon
+                            name="rocket-outline">
+                        </ion-icon>
+
                     </div>
 
+
                     <p>
+
                         Hiệu suất Web
+
                     </p>
 
                 </a>
-
 
             </div>
 
 
-            <!-- =========================
-                 THẺ
-            ========================== -->
+
+            <!-- THẺ -->
 
             <div class="tags">
 
                 <h2 class="h2">
+
                     Thẻ
+
                 </h2>
 
 
                 <div class="wrapper">
 
                     <button class="hashtag">
+
                         #mongodb
+
                     </button>
 
+
                     <button class="hashtag">
+
                         #nodejs
+
                     </button>
 
+
                     <button class="hashtag">
+
                         #accessibility
+
                     </button>
 
+
                     <button class="hashtag">
+
                         #webperf
+
                     </button>
 
                 </div>
 
-
             </div>
 
 
-            <!-- =========================
-                 LIÊN HỆ
-            ========================== -->
+
+            <!-- LIÊN HỆ -->
 
             <div class="contact">
 
                 <h2 class="h2">
+
                     Hãy liên hệ
+
                 </h2>
 
 
                 <div class="wrapper">
 
                     <p>
-                        Bạn muốn tìm hiểu thêm về cách tôi có thể giúp doanh nghiệp của bạn giải quyết các vấn đề?
+
+                        Bạn muốn tìm hiểu thêm về cách
+                        tôi có thể giúp bạn xây dựng
+                        và phát triển website?
+
                     </p>
 
                 </div>
 
-
             </div>
 
 
-            <!-- =========================
-                 ĐĂNG KÝ NHẬN TIN
-            ========================== -->
+
+            <!-- BẢN TIN -->
 
             <div class="newsletter">
 
                 <h2 class="h2">
+
                     Bản tin
+
                 </h2>
 
 
                 <div class="wrapper">
 
                     <p>
-                        Đăng ký nhận những bài viết mới nhất từ chúng tôi.
+
+                        Đăng ký để nhận những bài viết
+                        mới nhất từ chúng tôi.
+
                     </p>
 
 
@@ -376,20 +559,16 @@
 
                         </button>
 
-
                     </form>
 
-
                 </div>
-
 
             </div>
 
 
         </div>
 
-
     </div>
 
-
 </div>
+
