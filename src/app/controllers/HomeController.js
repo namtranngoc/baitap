@@ -1,4 +1,3 @@
-
 const Blog = require('../models/Blogs');
 
 class HomeController {
@@ -10,7 +9,26 @@ class HomeController {
         Blog.find({})
             .lean()
             .then(blogs => {
-                res.render('home', { blogs });
+
+                // Format ngày sang tiếng Việt
+                const formatter = new Intl.DateTimeFormat('vi-VN', {
+                    weekday: 'long',
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                });
+
+                // Thêm createdAtVN vào từng bài viết
+                const blogsWithDate = blogs.map(blog => ({
+                    ...blog,
+                    createdAtVN: blog.createdAt
+                        ? formatter.format(new Date(blog.createdAt))
+                        : ''
+                }));
+
+                res.render('home', {
+                    blogs: blogsWithDate
+                });
             })
             .catch(next);
     }
@@ -30,18 +48,28 @@ class HomeController {
     contact(req, res) {
         res.render('contact');
     }
-sendContact(req, res) {
 
-    const { name, email, message } = req.body;
 
-    console.log('Name', name);
-    console.log('Email:', email);
-    console.log('Message:', message);
+    // =========================
+    // XỬ LÝ LIÊN HỆ
+    // =========================
+    sendContact(req, res) {
 
-    res.render('contact', {
-        success: 'Your message has been sent successfully!'
-    });
-}
+        const {
+            name,
+            email,
+            message
+        } = req.body;
+
+        console.log('Name:', name);
+        console.log('Email:', email);
+        console.log('Message:', message);
+
+        res.render('contact', {
+            success: 'Tin nhắn của bạn đã được gửi thành công!'
+        });
+    }
+
 
     // =========================
     // TÌM KIẾM
@@ -86,7 +114,6 @@ sendContact(req, res) {
                 .trim()
                 .replace(/\s+/g, '-')
         });
-
 
         blog.save()
             .then(() => {
@@ -136,7 +163,6 @@ sendContact(req, res) {
             .trim()
             .replace(/\s+/g, '-');
 
-
         Blog.findByIdAndUpdate(
 
             req.params.id,
@@ -146,14 +172,14 @@ sendContact(req, res) {
 
                 description: req.body.description,
 
-                // QUAN TRỌNG: cập nhật nội dung
+                // Nội dung chi tiết
                 content: req.body.content,
 
+                // Link ảnh
                 image: req.body.image,
 
-                slug: newSlug,
-
-                
+                // Slug mới
+                slug: newSlug
             },
 
             {
@@ -182,7 +208,6 @@ sendContact(req, res) {
     delete(req, res, next) {
 
         Blog.findByIdAndDelete(req.params.id)
-
             .then(blog => {
 
                 if (!blog) {
@@ -194,7 +219,6 @@ sendContact(req, res) {
                 res.redirect('/');
 
             })
-
             .catch(next);
     }
 
@@ -213,7 +237,6 @@ sendContact(req, res) {
     checkLogin(req, res) {
         res.send('Xử lý đăng nhập');
     }
-
 }
 
 
