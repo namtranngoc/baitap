@@ -1,3 +1,4 @@
+```hbs
 <div class="container py-5">
 
     <div class="row justify-content-center">
@@ -9,68 +10,107 @@
                 <div class="card-body p-4">
 
                     <h2 class="text-center mb-4">
-                        Contact Us
+                        Liên hệ với chúng tôi
                     </h2>
 
+
                     {{#if success}}
+
                         <div class="alert alert-success">
                             {{success}}
                         </div>
+
                     {{/if}}
+
 
                     <form action="/contact" method="POST">
 
+
+                        <!-- HỌ VÀ TÊN -->
+
                         <div class="mb-3">
-                            <label for="name" class="form-label">
-                                Full Name
+
+                            <label
+                                for="name"
+                                class="form-label">
+
+                                Họ và tên
+
                             </label>
+
 
                             <input
                                 type="text"
                                 class="form-control"
                                 id="name"
                                 name="name"
-                                placeholder="Enter your full name"
+                                placeholder="Nhập họ và tên của bạn"
                                 required
                             >
+
                         </div>
 
+
+                        <!-- EMAIL -->
+
                         <div class="mb-3">
-                            <label for="email" class="form-label">
-                                Email Address
+
+                            <label
+                                for="email"
+                                class="form-label">
+
+                                Địa chỉ email
+
                             </label>
+
 
                             <input
                                 type="email"
                                 class="form-control"
                                 id="email"
                                 name="email"
-                                placeholder="Enter your email"
+                                placeholder="Nhập địa chỉ email của bạn"
                                 required
                             >
+
                         </div>
 
+
+                        <!-- NỘI DUNG -->
+
                         <div class="mb-3">
-                            <label for="message" class="form-label">
-                                Message
+
+                            <label
+                                for="message"
+                                class="form-label">
+
+                                Nội dung tin nhắn
+
                             </label>
+
 
                             <textarea
                                 class="form-control"
                                 id="message"
                                 name="message"
                                 rows="5"
-                                placeholder="Enter your message..."
+                                placeholder="Nhập nội dung tin nhắn của bạn..."
                                 required
                             ></textarea>
+
                         </div>
+
+
+                        <!-- NÚT GỬI -->
 
                         <button
                             type="submit"
-                            class="btn btn-primary w-100"
-                        >
-                            Send Message
+                            class="btn btn-primary w-100">
+
+                            Gửi tin nhắn
+
                         </button>
+
 
                     </form>
 
@@ -83,3 +123,4 @@
     </div>
 
 </div>
+```
