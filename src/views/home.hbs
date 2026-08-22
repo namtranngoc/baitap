@@ -1,26 +1,25 @@
-
 <div class="hero">
     <div class="container">
 
         <div class="left">
 
             <h1 class="h1">
-                Hi, I'm <b>Hung&nbsp;Nguyen</b>.
-                <br>Web Developer
+                Xin chào, tôi là <b>Hung&nbsp;Nguyen</b>.
+                <br>Lập trình viên Web
             </h1>
 
             <p class="h3">
-                Specialized in <abbr title="Accessibility">a11y</abbr>
-                and Core Web Vitals
+                Chuyên về <abbr title="Khả năng tiếp cận">khả năng tiếp cận</abbr>
+                và hiệu suất website
             </p>
 
             <div>
                 <a href="/contact" class="btn btn-primary">
-                    Contact Me
+                    Liên hệ với tôi
                 </a>
 
                 <a href="/about" class="btn btn-secondary">
-                    About Me
+                    Giới thiệu
                 </a>
             </div>
 
@@ -32,10 +31,15 @@
             <div class="pattern-bg"></div>
 
             <div class="img-box">
-                <img src="/img/hero.png" alt="Julia Walker" class="hero-img">
+
+                <img
+                    src="/img/hero.png"
+                    alt="Ảnh đại diện Hung Nguyen"
+                    class="hero-img">
 
                 <div class="shape shape-1"></div>
                 <div class="shape shape-2"></div>
+
             </div>
 
         </div>
@@ -44,18 +48,20 @@
 </div>
 
 
-
 <div class="main">
 
     <div class="container">
 
 
+        <!-- =========================
+             DANH SÁCH BÀI VIẾT
+        ========================== -->
+
         <div class="blog">
 
             <h2 class="h2">
-                Latest Blog Post
+                Bài viết mới nhất
             </h2>
-
 
 
             <div class="blog-card-group">
@@ -67,31 +73,36 @@
                 <div class="blog-card">
 
 
+                    <!-- ẢNH BÀI VIẾT -->
+
                     <div class="blog-card-banner">
 
-                        <img 
-                            src="{{this.image}}" 
-                            alt="{{this.name}}" 
+                        <img
+                            src="{{this.image}}"
+                            alt="{{this.name}}"
                             width="250"
                             class="blog-banner-img">
 
                     </div>
 
 
-
+                    <!-- NỘI DUNG BÀI VIẾT -->
 
                     <div class="blog-content-wrapper">
 
 
                         <button class="blog-topic text-tiny">
-                            Blog
+                            Bài viết
                         </button>
 
 
+                        <!-- TIÊU ĐỀ -->
 
                         <h3>
 
-                            <a href="/blogs/{{this.slug}}" class="h3">
+                            <a
+                                href="/blogs/{{this.slug}}"
+                                class="h3">
 
                                 {{this.name}}
 
@@ -100,7 +111,7 @@
                         </h3>
 
 
-
+                        <!-- MÔ TẢ -->
 
                         <p class="blog-text">
 
@@ -109,28 +120,26 @@
                         </p>
 
 
-
+                        <!-- THÔNG TIN BÀI VIẾT -->
 
                         <div class="wrapper-flex">
-
-
-
 
 
                             <div class="wrapper">
 
 
                                 <a href="#" class="h4">
-                                    Admin
+                                    Quản trị viên
                                 </a>
 
 
+                                <!-- NGÀY ĐĂNG -->
 
                                 <p class="text-sm">
 
                                     <time>
 
-                                        {{this.createdAt}}
+                                        {{this.createdAtVN}}
 
                                     </time>
 
@@ -144,41 +153,50 @@
 
 
                         <!-- =========================
-                             SỬA / XÓA BÀI VIẾT
+                             NÚT SỬA / XÓA
                         ========================== -->
 
                         <div class="blog-card-actions">
 
+
+                            <!-- SỬA -->
+
                             <a
                                 href="/blogs/{{this._id}}/edit"
-                                class="blog-action-btn edit"
-                            >
+                                class="blog-action-btn edit">
 
-                                <ion-icon name="create-outline"></ion-icon>
+                                <ion-icon
+                                    name="create-outline">
+                                </ion-icon>
 
                                 <span>Sửa</span>
 
                             </a>
 
 
+                            <!-- XÓA -->
+
                             <form
                                 method="POST"
                                 action="/blogs/{{this._id}}?_method=DELETE"
-                                onsubmit="return confirm('Bạn có chắc muốn xóa bài viết này không?');"
-                            >
+                                onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');">
+
 
                                 <button
                                     type="submit"
-                                    class="blog-action-btn delete"
-                                >
+                                    class="blog-action-btn delete">
 
-                                    <ion-icon name="trash-outline"></ion-icon>
+                                    <ion-icon
+                                        name="trash-outline">
+                                    </ion-icon>
 
                                     <span>Xóa</span>
 
                                 </button>
 
+
                             </form>
+
 
                         </div>
 
@@ -195,27 +213,31 @@
             </div>
 
 
-
+            <!-- XEM THÊM -->
 
             <button class="btn load-more">
-                Load More
+                Xem thêm bài viết
             </button>
-
 
 
         </div>
 
 
-
-
+        <!-- =========================
+             THANH BÊN
+        ========================== -->
 
         <div class="aside">
 
 
+            <!-- =========================
+                 CHỦ ĐỀ
+            ========================== -->
+
             <div class="topics">
 
                 <h2 class="h2">
-                    Topics
+                    Chủ đề
                 </h2>
 
 
@@ -226,11 +248,10 @@
                     </div>
 
                     <p>
-                        Database
+                        Cơ sở dữ liệu
                     </p>
 
                 </a>
-
 
 
                 <a href="#" class="topic-btn">
@@ -240,11 +261,10 @@
                     </div>
 
                     <p>
-                        Accessibility
+                        Khả năng tiếp cận
                     </p>
 
                 </a>
-
 
 
                 <a href="#" class="topic-btn">
@@ -254,7 +274,7 @@
                     </div>
 
                     <p>
-                        Web Performance
+                        Hiệu suất Web
                     </p>
 
                 </a>
@@ -263,13 +283,14 @@
             </div>
 
 
-
-
+            <!-- =========================
+                 THẺ
+            ========================== -->
 
             <div class="tags">
 
                 <h2 class="h2">
-                    Tags
+                    Thẻ
                 </h2>
 
 
@@ -284,7 +305,7 @@
                     </button>
 
                     <button class="hashtag">
-                        #a11y
+                        #accessibility
                     </button>
 
                     <button class="hashtag">
@@ -297,21 +318,22 @@
             </div>
 
 
-
+            <!-- =========================
+                 LIÊN HỆ
+            ========================== -->
 
             <div class="contact">
 
                 <h2 class="h2">
-                    Let's Talk
+                    Hãy liên hệ
                 </h2>
 
 
                 <div class="wrapper">
 
                     <p>
-                        Do you want to learn more about how I can help your company overcome problems?
+                        Bạn muốn tìm hiểu thêm về cách tôi có thể giúp doanh nghiệp của bạn giải quyết các vấn đề?
                     </p>
-
 
                 </div>
 
@@ -319,34 +341,39 @@
             </div>
 
 
-
-
+            <!-- =========================
+                 ĐĂNG KÝ NHẬN TIN
+            ========================== -->
 
             <div class="newsletter">
 
                 <h2 class="h2">
-                    Newsletter
+                    Bản tin
                 </h2>
 
 
                 <div class="wrapper">
 
                     <p>
-                        Subscribe to our newsletter.
+                        Đăng ký nhận những bài viết mới nhất từ chúng tôi.
                     </p>
 
 
                     <form action="#">
 
-                        <input 
+                        <input
                             type="email"
                             name="email"
-                            placeholder="Email Address"
+                            placeholder="Địa chỉ email"
                             required>
 
 
-                        <button type="submit" class="btn btn-primary">
-                            Subscribe
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                            Đăng ký
+
                         </button>
 
 
@@ -359,9 +386,7 @@
             </div>
 
 
-
         </div>
-
 
 
     </div>
