@@ -1,4 +1,3 @@
-
 {{#if blog}}
 
 <div class="container py-5">
@@ -26,15 +25,16 @@
 
                         <div class="blog-meta">
                             <i class="bi bi-calendar3"></i>
-                            <span>Ngày đăng: {{blog.createdAt}}</span>
+                            <!-- Định dạng hiển thị: 24 Tháng 8, 2026 hoặc đổi thành "DD/MM/YYYY" -->
+                            <span>Ngày đăng: {{dateFormat blog.createdAt "LL"}}</span>
                         </div>
                     </div>
 
                     <hr class="blog-divider">
 
-                    <!-- Nội dung -->
+                    <!-- Nội dung chi tiết (Thay blog.description thành blog.content) -->
                     <div class="blog-detail-content">
-                        {{{blog.description}}}
+                        {{{blog.content}}}
                     </div>
 
                 </div>
@@ -98,4 +98,3 @@
 </div>
 
 {{/if}}
-
