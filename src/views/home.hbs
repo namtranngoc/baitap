@@ -132,60 +132,46 @@
             </div>
 
             <!-- =========================
-                 PHÂN TRANG (PAGINATION)
+                 PHÂN TRANG (1 HÀNG GỌN GÀNG)
             ========================== -->
             {{#if totalPages}}
-                <div class="custom-pagination-wrapper">
-                    <ul class="custom-pagination">
+                <div class="compact-pagination-wrapper">
+                    <div class="compact-pagination">
 
                         <!-- NÚT TRƯỚC -->
                         {{#if hasPrevious}}
-                            <li class="page-item">
-                                <a href="/?page={{previousPage}}" class="page-link prev-btn">
-                                    <ion-icon name="chevron-back-outline"></ion-icon>
-                                    <span>Trước</span>
-                                </a>
-                            </li>
+                            <a href="/?page={{previousPage}}" class="compact-page-btn">
+                                <ion-icon name="chevron-back-outline"></ion-icon>
+                                <span>Trước</span>
+                            </a>
                         {{else}}
-                            <li class="page-item disabled">
-                                <span class="page-link prev-btn">
-                                    <ion-icon name="chevron-back-outline"></ion-icon>
-                                    <span>Trước</span>
-                                </span>
-                            </li>
+                            <span class="compact-page-btn disabled">
+                                <ion-icon name="chevron-back-outline"></ion-icon>
+                                <span>Trước</span>
+                            </span>
                         {{/if}}
 
-                        <!-- DANH SÁCH SỐ TRANG -->
-                        {{#each pages}}
-                            {{#if this.active}}
-                                <li class="page-item active">
-                                    <span class="page-link">{{this.number}}</span>
-                                </li>
-                            {{else}}
-                                <li class="page-item">
-                                    <a href="/?page={{this.number}}" class="page-link">{{this.number}}</a>
-                                </li>
-                            {{/if}}
-                        {{/each}}
+                        <!-- HIỂN THỊ DẠNG: 1 / 12 -->
+                        <div class="compact-page-status">
+                            <span class="current-page">{{currentPage}}</span>
+                            <span class="separator">/</span>
+                            <span class="total-pages">{{totalPages}}</span>
+                        </div>
 
                         <!-- NÚT SAU -->
                         {{#if hasNext}}
-                            <li class="page-item">
-                                <a href="/?page={{nextPage}}" class="page-link next-btn">
-                                    <span>Sau</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </a>
-                            </li>
+                            <a href="/?page={{nextPage}}" class="compact-page-btn">
+                                <span>Sau</span>
+                                <ion-icon name="chevron-forward-outline"></ion-icon>
+                            </a>
                         {{else}}
-                            <li class="page-item disabled">
-                                <span class="page-link next-btn">
-                                    <span>Sau</span>
-                                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                                </span>
-                            </li>
+                            <span class="compact-page-btn disabled">
+                                <span>Sau</span>
+                                <ion-icon name="chevron-forward-outline"></ion-icon>
+                            </span>
                         {{/if}}
 
-                    </ul>
+                    </div>
                 </div>
             {{/if}}
 
