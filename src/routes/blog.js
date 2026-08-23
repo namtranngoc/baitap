@@ -140,7 +140,7 @@ router.delete(
 // ========================================
 
 router.get(
-    '/blogs/:slug',
+    '/:slug',
     BlogController.show
 );
 
