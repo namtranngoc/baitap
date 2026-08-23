@@ -2327,19 +2327,21 @@ footer .wrapper {
 }
 
 /* ========================================
-   COMPACT PAGINATION (1 HÀNG GỌN GÀNG)
+   COMPACT PAGINATION (CHUẨN 1 HÀNG, KHÔNG RỚT DÒNG)
    ======================================== */
 .compact-pagination-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 40px 0 20px 0;
+    width: 100%;
 }
 
 .compact-pagination {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    gap: 10px;
     background-color: #ffffff;
     padding: 6px 12px;
     border-radius: 50px;
@@ -2352,6 +2354,7 @@ footer .wrapper {
 .compact-page-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     padding: 8px 16px;
     font-size: 14px;
@@ -2361,8 +2364,10 @@ footer .wrapper {
     border: 1px solid #e5e7eb;
     border-radius: 30px;
     text-decoration: none;
+    line-height: 1.2;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .compact-page-btn:not(.disabled):hover {
@@ -2380,33 +2385,35 @@ footer .wrapper {
     opacity: 0.6;
 }
 
-/* Badge hiển thị 1 / 12 */
+/* Khối hiển thị 2 / 17 */
 .compact-page-status {
-    display: inline-flex;
-    align-items: center;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     gap: 6px;
     padding: 6px 14px;
     background-color: #f3f4f6;
     border-radius: 20px;
     font-size: 14px;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
     user-select: none;
+    color: #9ca3af;
 }
 
 .compact-page-status .current-page {
     font-weight: 700;
     color: #4f46e5;
-}
-
-.compact-page-status .separator {
-    color: #9ca3af;
-    font-weight: 500;
+    line-height: inherit;
 }
 
 .compact-page-status .total-pages {
     font-weight: 600;
     color: #374151;
+    line-height: inherit;
 }
 
 .compact-page-btn ion-icon {
     font-size: 16px;
+    display: block;
 }
