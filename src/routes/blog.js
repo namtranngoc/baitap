@@ -141,7 +141,7 @@ router.delete(
 
 router.get(
     '/blogs/:slug',
-    BlogController.detail
+    BlogController.show
 );
 
 
