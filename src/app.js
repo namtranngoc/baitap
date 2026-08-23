@@ -4,7 +4,16 @@ const morgan = require('morgan');
 const path = require('path');
 const { engine } = require('express-handlebars');
 const moment = require('moment');
-require('moment/locale/vi'); // Nạp tiếng Việt
+
+// Nạp tiếng Việt cho moment
+require('moment/locale/vi');
+moment.locale('vi');
+
+// Kết nối cơ sở dữ liệu
+const db = require('./config/db');
+db.connect();
+
+const routes = require('./routes');
 
 const app = express();
 
@@ -17,7 +26,9 @@ app.engine(
     engine({
         extname: '.hbs',
         helpers: {
+            // Helper định dạng ngày tháng tiếng Việt
             dateFormat: function (date, format) {
+                if (!date) return '';
                 return moment(date).locale('vi').format(format);
             }
         }
@@ -26,11 +37,11 @@ app.engine(
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Routes
-const routes = require('./routes');
+// Nạp routes
 routes(app);
 
 module.exports = app;
