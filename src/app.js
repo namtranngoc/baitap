@@ -5,7 +5,6 @@ const path = require('path');
 const { engine } = require('express-handlebars');
 const moment = require('moment');
 
-// Nạp tiếng Việt cho moment
 require('moment/locale/vi');
 moment.locale('vi');
 
@@ -17,19 +16,35 @@ const routes = require('./routes');
 
 const app = express();
 
+// =========================
+// MIDDLEWARE
+// =========================
+
 app.use(methodOverride('_method'));
+
 app.use(morgan('combined'));
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// =========================
+// HANDLEBARS
+// =========================
 
 app.engine(
     'hbs',
     engine({
         extname: '.hbs',
+
         helpers: {
-            // Helper định dạng ngày tháng tiếng Việt
             dateFormat: function (date, format) {
                 if (!date) return '';
-                return moment(date).locale('vi').format(format);
+
+                return moment(date)
+                    .locale('vi')
+                    .format(format);
             }
         }
     })
@@ -38,10 +53,14 @@ app.engine(
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// =========================
+// ROUTES
+// =========================
 
-// Nạp routes
 routes(app);
+
+// =========================
+// EXPORT APP
+// =========================
 
 module.exports = app;
