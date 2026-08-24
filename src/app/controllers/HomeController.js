@@ -1,5 +1,5 @@
-
 const Blog = require('../models/Blogs');
+const transporter = require('../../config/mail');
 
 class HomeController {
 
@@ -8,56 +8,34 @@ class HomeController {
     // =========================
     home(req, res, next) {
 
-        // Lấy số trang từ URL
-        // Ví dụ: /?page=2
         const page = Math.max(
             parseInt(req.query.page) || 1,
             1
         );
 
-        // MỖI TRANG 3 BÀI VIẾT
         const limit = 3;
 
-        // Tính số bài cần bỏ qua
         const skip = (page - 1) * limit;
-
 
         Promise.all([
 
-            // Đếm tổng số bài viết
             Blog.countDocuments({}),
 
-            // Lấy bài viết
             Blog.find({})
-
-                // BÀI MỚI NHẤT LÊN ĐẦU
                 .sort({
                     createdAt: -1
                 })
-
-                // Phân trang
                 .skip(skip)
                 .limit(limit)
-
-                // Chuyển sang object
                 .lean()
 
         ])
 
             .then(([totalBlogs, blogs]) => {
 
-                // =========================
-                // TÍNH TỔNG SỐ TRANG
-                // =========================
-
                 const totalPages = Math.ceil(
                     totalBlogs / limit
                 );
-
-
-                // =========================
-                // FORMAT NGÀY TIẾNG VIỆT
-                // =========================
 
                 const formatter = new Intl.DateTimeFormat(
                     'vi-VN',
@@ -69,8 +47,6 @@ class HomeController {
                     }
                 );
 
-
-                // Thêm ngày tiếng Việt
                 const blogsWithDate = blogs.map(blog => ({
 
                     ...blog,
@@ -82,11 +58,6 @@ class HomeController {
                         : ''
 
                 }));
-
-
-                // =========================
-                // TẠO DANH SÁCH SỐ TRANG
-                // =========================
 
                 const pages = [];
 
@@ -102,35 +73,22 @@ class HomeController {
 
                 }
 
-
-                // =========================
-                // HIỂN THỊ TRANG
-                // =========================
-
                 res.render('home', {
 
-                    // Danh sách bài viết
                     blogs: blogsWithDate,
 
-                    // Trang hiện tại
                     currentPage: page,
 
-                    // Tổng số trang
                     totalPages: totalPages,
 
-                    // Danh sách trang
                     pages: pages,
 
-                    // Có trang trước
                     hasPrevious: page > 1,
 
-                    // Có trang sau
                     hasNext: page < totalPages,
 
-                    // Trang trước
                     previousPage: page - 1,
 
-                    // Trang sau
                     nextPage: page + 1
 
                 });
@@ -162,9 +120,9 @@ class HomeController {
 
 
     // =========================
-    // XỬ LÝ LIÊN HỆ
+    // XỬ LÝ LIÊN HỆ + GỬI EMAIL
     // =========================
-    sendContact(req, res) {
+    async sendContact(req, res) {
 
         const {
             name,
@@ -173,17 +131,104 @@ class HomeController {
         } = req.body;
 
 
+        console.log('==========================');
+        console.log('📩 CÓ LIÊN HỆ MỚI');
         console.log('Họ và tên:', name);
         console.log('Email:', email);
         console.log('Tin nhắn:', message);
+        console.log('==========================');
 
 
-        res.render('contact', {
+        try {
 
-            success:
-                'Tin nhắn của bạn đã được gửi thành công!'
+            await transporter.sendMail({
 
-        });
+                // Email dùng để gửi
+                from: process.env.MAIL_USER,
+
+                // Email nhận
+                to: process.env.MAIL_USER,
+
+                // Khi bấm Reply sẽ trả lời người gửi
+                replyTo: email,
+
+                // Tiêu đề email
+                subject: `Liên hệ từ Blog - ${name}`,
+
+                // Nội dung email
+                html: `
+
+                    <div style="
+                        font-family: Arial, sans-serif;
+                        max-width: 700px;
+                        margin: auto;
+                    ">
+
+                        <h2>
+                            📩 Có liên hệ mới từ website Blog
+                        </h2>
+
+                        <hr>
+
+                        <p>
+                            <strong>Họ và tên:</strong>
+                            ${name}
+                        </p>
+
+                        <p>
+                            <strong>Email:</strong>
+                            ${email}
+                        </p>
+
+                        <p>
+                            <strong>Nội dung:</strong>
+                        </p>
+
+                        <div style="
+                            background: #f5f5f5;
+                            padding: 15px;
+                            border-radius: 8px;
+                            white-space: pre-line;
+                        ">
+                            ${message}
+                        </div>
+
+                    </div>
+
+                `
+
+            });
+
+
+            console.log('✅ GỬI EMAIL THÀNH CÔNG');
+
+
+            // Gửi thành công
+            res.render('contact', {
+
+                success:
+                    'Tin nhắn của bạn đã được gửi thành công!'
+
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                '❌ LỖI GỬI EMAIL:',
+                error
+            );
+
+
+            // Gửi thất bại
+            res.render('contact', {
+
+                error:
+                    'Không thể gửi tin nhắn. Vui lòng thử lại sau.'
+
+            });
+
+        }
 
     }
 
@@ -223,15 +268,33 @@ class HomeController {
 
             image: req.body.image,
 
-            // Tạo slug tự động
             slug: req.body.name
+
                 .toLowerCase()
+
                 .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/đ/g, 'd')
-                .replace(/[^a-z0-9\s-]/g, '')
+
+                .replace(
+                    /[\u0300-\u036f]/g,
+                    ''
+                )
+
+                .replace(
+                    /đ/g,
+                    'd'
+                )
+
+                .replace(
+                    /[^a-z0-9\s-]/g,
+                    ''
+                )
+
                 .trim()
-                .replace(/\s+/g, '-')
+
+                .replace(
+                    /\s+/g,
+                    '-'
+                )
 
         });
 
@@ -245,6 +308,7 @@ class HomeController {
             })
 
             .catch(next);
+
     }
 
 
@@ -281,6 +345,7 @@ class HomeController {
             })
 
             .catch(next);
+
     }
 
 
@@ -362,6 +427,7 @@ class HomeController {
             })
 
             .catch(next);
+
     }
 
 
@@ -390,6 +456,7 @@ class HomeController {
             })
 
             .catch(next);
+
     }
 
 
